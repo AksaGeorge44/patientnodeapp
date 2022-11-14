@@ -1,0 +1,13 @@
+var mongoose=require('mongoose')
+var DoctorSchema=new mongoose.Schema(
+    {
+        name:{type:String,required:true},
+        qualification:{type:String,required:true},
+        department:{type:String,required:true},
+        contactno:{type:String,required:true},
+
+
+    }
+)
+var doctorModel=mongoose.model('doctors',DoctorSchema);
+module.exports={doctorModel}

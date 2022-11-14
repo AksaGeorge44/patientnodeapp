@@ -1,0 +1,63 @@
+var express=require('express')
+var bodyParser=require('body-parser')
+var mongoose=require('mongoose')
+var {patientModel}=require('../models/patientModels')
+var patientRouter=express.Router()
+patientRouter.use(bodyParser.urlencoded({ extended: false }))
+
+patientRouter.use(bodyParser.json())
+patientRouter.get('/viewall',async(req,res)=>
+{
+try{
+    var result=await patientModel.find()
+    res.json(result)
+}
+catch(error){
+    res.send(error)
+}
+
+
+})
+
+patientRouter.post('/search',async(req,res)=>
+{
+try{
+    var result=await patientModel.find(req.body)
+    res.json(result)
+}
+catch(error){
+    res.send(error)
+}
+})
+
+patientRouter.post('/edit',async(req,res)=>
+{
+try{
+    var result=await patientModel.findByIdAndUpdate({"_id":req.body._id},req.body)
+    res.json(result)
+}
+catch(error){
+    res.send(error)
+}
+})
+
+patientRouter.post('/delete',async(req,res)=>
+{
+try{
+    var result=await patientModel.findByIdAndDelete({"_id":req.body._id})
+    res.json(result)
+}
+catch(error){
+    res.send(error)
+}
+})
+
+patientRouter.post('/read',(req,res)=>{
+    var patientObject=new patientModel(req.body)
+    patientObject.save()
+
+
+res.json(patientObject)
+
+})
+module.exports={patientRouter}

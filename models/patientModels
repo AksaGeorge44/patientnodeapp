@@ -1,0 +1,18 @@
+var mongoose=require('mongoose')
+var PatientSchema=new mongoose.Schema(
+    {
+        code:{type:Number,required:true},
+        name:{type:String,required:true},
+        address:{type:String,required:true},
+        phoneno:{type:Number,required:true},
+        symptoms:{type:String,required:true},
+        disease:{type:String,required:true},
+        bloodgroup:{type:String,required:true},
+        place:{type:String,required:true},
+        pincode:{type:Number,required:true},
+
+
+    }
+)
+var patientModel=mongoose.model('patients',PatientSchema);
+module.exports={patientModel}

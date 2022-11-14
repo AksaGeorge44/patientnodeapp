@@ -1,5 +1,17 @@
+
 var express=require('express')
 var bodyParser=require('body-parser')
+var mongoose=require('mongoose')
+var {patientModel}=require('./models/patientModels')
+
+var {doctorModel}=require('./models/doctorModels')
+
+mongoose.connect("mongodb+srv://Aksageorge:aksageorge44@cluster0.3ictqpt.mongodb.net/?retryWrites=true&w=majority",{useNewUrlParser:true})
+
+var {patientRouter}=require('./controller/patientController')
+var {doctorRouter}=require('./controller/doctorController')
+
+
 
 
 var app=express()
@@ -7,28 +19,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(bodyParser.json())
 
-
+app.use('/patient',patientRouter)
+app.use('/doctor',doctorRouter)
 
 app.get('/',(req,res)=>
 {
     res.send("hello")
 })
 
-app.post('/read',(req,res)=>{
-    
-var getCode=req.body.code
-var getName=req.body.name
-var getAddress=req.body.address
-var getPhoneno=req.body.phoneno
-var getSymptoms=req.body.symptoms
-var getDisease=req.body.disease
-var getBloodgroup=req.body.bloodgroup
-var getPlace=req.body.place
-var getPincode=req.body.pincode
-
-res.json({"code":getCode,"name":getName,"address":getAddress,"phoneno":getPhoneno,"symptoms":getSymptoms,"disease":getDisease,"bloodgroup":getBloodgroup,"place":getPlace,"pincode":getPincode})
-
-})
 
 
 
